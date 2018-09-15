@@ -1,14 +1,11 @@
 import React from 'react';
 
 export default class AddContact extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleAddContact =this.handleAddContact.bind(this);
-        this.state = {
-            error: undefined
-        };
-    }
-    handleAddContact(e){
+    state = {
+        error: undefined
+    };
+
+    handleAddContact = (e) => {
         e.preventDefault();
         
         // TODO: has to make the data type to be OBJ

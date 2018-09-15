@@ -4,17 +4,41 @@ import Contacts from './Contacts';
 import Header from './Header';
 
 export default class ContactApp extends React.Component {
-    constructor(props) {
-        super(props);
-        this.handleRemoveAll = this.handleRemoveAll.bind(this);
-        this.handleRemoveContact = this.handleRemoveContact.bind(this);
-        this.handleEditContact = this.handleEditContact.bind(this);
-        this.handleAddContact = this.handleAddContact.bind(this);
-        this.state = {
-            contacts: props.contacts
-        };
-    }
+    state = {
+        contacts: []
+    };
 
+    // remove all 
+    handleRemoveAll = () => {
+        this.setState(() => ({ contacts: [] }));
+    };
+
+    handleAddContact = (contact) => {
+        // TODO: validate input
+        if(!contact) {
+            return 'Enter valid value to add item';
+        } else if (this.state.contacts.indexOf(contact) > -1) {
+            return 'This contact already exists'
+        } 
+
+        this.setState((prevState) => ({
+            contacts: prevState.contacts.concat(contact)
+        }));
+    };
+
+    handleRemoveContact = (contactToRemove) => {
+        this.setState((prevState) => ({ 
+            contacts: prevState.contacts.filter((contact) => {
+                return contactToRemove !== contact;
+            })
+        }));
+    };
+
+    handleEditContact = (contact) => {
+        console.log('edit');
+        console.log(contact);
+    };
+ 
     componentDidMount() {
         try {
             const json = localStorage.getItem('contacts');
@@ -35,42 +59,7 @@ export default class ContactApp extends React.Component {
             localStorage.setItem('contacts', json);
         }
         console.log('saving data');
-    }
-
-    componentWillUnMount() {
-        console.log('component will unmount!')
-    }
-
-    // remove all 
-    handleRemoveAll() {
-        this.setState(() => ({ contacts: [] }));
-    }
-
-    handleAddContact(contact){
-        // TODO: validate input
-        if(!contact) {
-            return 'Enter valid value to add item';
-        } else if (this.state.contacts.indexOf(contact) > -1) {
-            return 'This contact already exists'
-        } 
-
-        this.setState((prevState) => ({
-            contacts: prevState.contacts.concat(contact)
-        }));
-    }
-
-    handleRemoveContact(contactToRemove) {
-        this.setState((prevState) => ({ 
-            contacts: prevState.contacts.filter((contact) => {
-                return contactToRemove !== contact;
-            })
-        }));
-    }
-
-    handleEditContact(contact){
-        console.log('edit');
-        console.log(contact);
-    }
+    };
 
     render() {
         const title = 'Contacts';
