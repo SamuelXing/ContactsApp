@@ -3,26 +3,23 @@ import AddContact from './AddContact';
 import Contacts from './Contacts';
 import Header from './Header';
 
+// TODO: Footer
+import {Grid, Row, col, Navbar} from 'react-bootstrap';
+
 export default class ContactApp extends React.Component {
     state = {
         contacts: []
-    };
-
-    // remove all 
-    handleRemoveAll = () => {
-        this.setState(() => ({ contacts: [] }));
     };
 
     handleAddContact = (contact) => {
         // TODO: validate input
         if(!contact) {
             return 'Enter valid value to add item';
-        } else if (this.state.contacts.indexOf(contact) > -1) {
-            return 'This contact already exists'
         } 
+        // TODO: check if the contact has already existed
 
         this.setState((prevState) => ({
-            contacts: prevState.contacts.concat(contact)
+            contacts: prevState.contacts.concat([contact])
         }));
     };
 
@@ -73,22 +70,11 @@ export default class ContactApp extends React.Component {
                 />
                 <Contacts 
                     contacts={this.state.contacts}
-                    handleRemoveAll = {this.handleRemoveAll}
                     handleRemoveContact = {this.handleRemoveContact}
                     handleEditContact = {this.handleEditContact}
                 />
             </div>
         )
-    }
-};
-
-class ContactInfo {
-    constructor(firstName, lastName, email, phone, status) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phone = phone;
-        this.status = status;
     }
 };
 
