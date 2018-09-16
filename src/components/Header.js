@@ -1,5 +1,5 @@
 import React from 'react';
-import { Navbar, NavItem, Nav, PageHeader} from 'react-bootstrap';
+import { Navbar, NavItem, Nav} from 'react-bootstrap';
 
 const Header = (props) => (
     <div>
@@ -21,9 +21,12 @@ const Header = (props) => (
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
-        <PageHeader>
-            {props.title} <small>{props.subtitle}</small>
-        </PageHeader>
+        <div className = "header">
+            <div className = "container">
+                <h1 className = "header__title">{props.title}</h1> 
+                <h2 className = "header__subtitle">{props.subtitle}</h2>
+            </div>
+        </div>
     </div>
 );
 

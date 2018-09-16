@@ -3,7 +3,7 @@ import Contact from './Contact';
 import { Table } from 'react-bootstrap';
 
 const Contacts = (props) => (
-    <div>
+    <div className = "contacts-table">
         <Table striped responsive condensed hover>
             <thead>
             <tr>
@@ -30,7 +30,8 @@ const Contacts = (props) => (
                     />))
                 }
             </tbody>
-        </Table>    
+        </Table> 
+        <div className = "contacts-counter">{props.contacts.length} contacts</div>   
     </div>
 );
 

@@ -4,7 +4,7 @@ import Contacts from './Contacts';
 import Header from './Header';
 
 // TODO: Footer
-import {Grid, Row, col, Navbar} from 'react-bootstrap';
+import {Grid, Row, Col} from 'react-bootstrap';
 
 export default class ContactApp extends React.Component {
     state = {
@@ -13,17 +13,17 @@ export default class ContactApp extends React.Component {
 
     handleAddContact = (contact) => {
         // Tvalidate input
-        if(!contact) return 'Enter valid value to add item';
-        else if(!contact.firstname) return 'FirstName is empty';
-        else if(!contact.lastname) return 'LastName is empty';
-        else if(!contact.email) return 'Email is empty';
-        else if(!contact.phone) return 'Phone is empty';
+        if(!contact) return 'INVALID INPUTS: Enter valid value to add item';
+        else if(!contact.firstname) return 'INVALID INPUTS: FirstName is empty';
+        else if(!contact.lastname) return 'INVALID INPUTS: LastName is empty';
+        else if(!contact.email) return 'INVALID INPUTS: Email is empty';
+        else if(!contact.phone) return 'INVALID INPUTS: Phone is empty';
 
         // check if the contact has already existed
         const result = this.state.contacts.filter(obj => {
             return obj.shortcut === contact.shortcut;
         });
-        if(result.length !== 0) return 'Contact had already added';
+        if(result.length !== 0) return 'INVALID INPUTS: Contact had already added';
         
         this.setState((prevState) => ({
             contacts: prevState.contacts.concat([contact])
@@ -43,7 +43,7 @@ export default class ContactApp extends React.Component {
         
         for(let i = 0; i < contacts.length; i++){
             if(contacts[i].shortcut === firstname.toLowerCase() + lastname.toLowerCase() + email.toLowerCase() + phone.toLowerCase()){
-                return 'Contact had already added';
+                return 'INVALID INPUTS: Contact had already added';
             }
             if(contacts[i].id === contactId){
                 contacts[i].firstname = firstname;
@@ -88,17 +88,23 @@ export default class ContactApp extends React.Component {
         const subtitle = 'A single page App to manage your contacts.';
 
         return (
-            <div>
-                <Header title={title} subtitle={subtitle} />
-                <AddContact
-                    handleAddContact = {this.handleAddContact}
-                />
-                <Contacts 
-                    contacts={this.state.contacts}
-                    handleRemoveContact = {this.handleRemoveContact}
-                    handleEditContact = {this.handleEditContact}
-                />
-            </div>
+            <Grid fluid>
+                <Row>
+                    <Col md = {12} >
+                        <Header title={title} subtitle={subtitle} />
+                        <div>
+                        <AddContact
+                            handleAddContact = {this.handleAddContact}
+                        />
+                        <Contacts 
+                            contacts = {this.state.contacts}
+                            handleRemoveContact = {this.handleRemoveContact}
+                            handleEditContact = {this.handleEditContact}
+                        />
+                        </div>
+                    </Col>
+                </Row>
+            </Grid>
         )
     }
 };

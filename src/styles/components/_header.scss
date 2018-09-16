@@ -1,0 +1,19 @@
+.header {
+    margin-bottom: $m-size;
+    padding: $m-size 0;
+    border-bottom: 3px solid $border-color;
+}
+
+// BEM block element modifier
+.header__title {
+    font-size: $xxl-size;
+    font-weight: 1000;
+    margin: 0;
+}
+
+.header__subtitle {
+    color: $off-grey;
+    font-size: $m-size;
+    font-weight: 1000;
+    margin: 0;
+}

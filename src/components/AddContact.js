@@ -1,6 +1,6 @@
 import React from 'react';
 import validator from 'validator';
-import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap'; 
+import { Form, FormGroup, FormControl, ControlLabel, Button, Alert } from 'react-bootstrap'; 
 
 // generate uuid, reference: https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript#answer-2117523
 function uuidv4() {
@@ -11,13 +11,30 @@ function uuidv4() {
   }
 
 export default class AddContact extends React.Component {
-    state = {
-        error: undefined,
-        firstname: '',
-        lastname: '',
-        email: '',
-        phone: ''
-    };
+    
+    constructor(props, context) {
+        super(props, context);
+    
+        this.handleDismiss = this.handleDismiss.bind(this);
+        this.handleShow = this.handleShow.bind(this);
+
+        this.state = {
+            show: false,
+            error: undefined,
+            firstname: '',
+            lastname: '',
+            email: '',
+            phone: ''
+        };
+      }
+    
+      handleDismiss() {
+        this.setState({ show: false });
+      }
+    
+      handleShow() {
+        this.setState({ show: true });
+      }
 
     handleAddContact = (e) => {
         e.preventDefault();
@@ -96,9 +113,56 @@ export default class AddContact extends React.Component {
     };
 
     render() {
+        if (this.state.error) {
+            return (
+                <div className = "contact-add-new">
+                    <Alert bsStyle="danger" className = "notification">
+                        {this.state.error && <p>{this.state.error}</p>}
+                    </Alert>   
+                    <div className = 'centered'>
+                    <Form inline onSubmit={this.handleAddContact}>
+                        <FormGroup
+                            controlId="formInlineFirstName"
+                            validationState={this.getValidFirstName()}
+                        >
+                            <ControlLabel>FirstName</ControlLabel>{' '}
+                            <FormControl type="text" name = "firstname" value = {this.state.firstname} placeholder="eg. Jane (0-10 characters)" onChange={this.handleFirstnameChange} />
+                            <FormControl.Feedback />
+                        </FormGroup>{' '}
+                        <FormGroup 
+                            controlId="formInlineLastName"
+                            validationState={this.getValidLastName()}
+                        >
+                            <ControlLabel>LastName</ControlLabel>{' '}
+                            <FormControl type="text" name = "lastname" value = {this.state.lastname} placeholder="eg. Doe (0-10 characters)" onChange={this.handleLastnameChange} />
+                            <FormControl.Feedback />
+                        </FormGroup>{' '}
+                        <FormGroup 
+                            controlId="formInlineEmail"
+                            validationState={this.getValidEmail()}
+                        >
+                            <ControlLabel>Email</ControlLabel>{' '}
+                            <FormControl type="email" name = "email" value = {this.state.email} placeholder="eg. jane.doe@example.com" onChange={this.handleEmailChange} />
+                            <FormControl.Feedback />
+                        </FormGroup>{' '}
+                        <FormGroup 
+                            controlId="formInlinePhone"
+                            validationState={this.getValidPhone()}
+                        >
+                            <ControlLabel>Phone</ControlLabel>{' '}
+                            <FormControl type="text" name = "phone" value = {this.state.phone} placeholder="eg. xxx-xxx-xxxx (U.S)" onChange={this.handlePhoneChange} />
+                            <FormControl.Feedback />
+                        </FormGroup>{' '}
+                        <Button bsStyle="primary" type="submit">Add New</Button>
+                    </Form>
+                    </div>
+                </div>
+            );
+        }
+
         return (
-            <div>
-                {this.state.error && <p>{this.state.error}</p>}
+            <div className = "contact-add-new">      
+                <div className = 'centered'>
                 <Form inline onSubmit={this.handleAddContact}>
                     <FormGroup
                         controlId="formInlineFirstName"
@@ -134,6 +198,7 @@ export default class AddContact extends React.Component {
                     </FormGroup>{' '}
                     <Button bsStyle="primary" type="submit">Add New</Button>
                 </Form>
+                </div>
             </div>
         );
     }
