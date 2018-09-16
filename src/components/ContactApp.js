@@ -12,28 +12,53 @@ export default class ContactApp extends React.Component {
     };
 
     handleAddContact = (contact) => {
-        // TODO: validate input
-        if(!contact) {
-            return 'Enter valid value to add item';
-        } 
-        // TODO: check if the contact has already existed
+        // Tvalidate input
+        if(!contact) return 'Enter valid value to add item';
+        else if(!contact.firstname) return 'FirstName is empty';
+        else if(!contact.lastname) return 'LastName is empty';
+        else if(!contact.email) return 'Email is empty';
+        else if(!contact.phone) return 'Phone is empty';
 
+        // check if the contact has already existed
+        const result = this.state.contacts.filter(obj => {
+            return obj.shortcut === contact.shortcut;
+        });
+        if(result.length !== 0) return 'Contact had already added';
+        
         this.setState((prevState) => ({
             contacts: prevState.contacts.concat([contact])
         }));
     };
 
-    handleRemoveContact = (contactToRemove) => {
+    handleRemoveContact = (contactId) => {
         this.setState((prevState) => ({ 
             contacts: prevState.contacts.filter((contact) => {
-                return contactToRemove !== contact;
+                return contactId !== contact.id;
             })
         }));
     };
 
-    handleEditContact = (contact) => {
-        console.log('edit');
-        console.log(contact);
+    handleEditContact = (contactId, firstname, lastname, email, phone) => {
+        const contacts = this.state.contacts;
+        
+        for(let i = 0; i < contacts.length; i++){
+            if(contacts[i].shortcut === firstname.toLowerCase() + lastname.toLowerCase() + email.toLowerCase() + phone.toLowerCase()){
+                return 'Contact had already added';
+            }
+            if(contacts[i].id === contactId){
+                contacts[i].firstname = firstname;
+                contacts[i].lastname = lastname;
+                contacts[i].email = email;
+                contacts[i].phone = phone;
+            }
+        }
+
+        const json = JSON.stringify(contacts);
+        localStorage.setItem('contacts', json);
+
+        this.setState(() => ({
+            contacts: contacts
+        }));
     };
  
     componentDidMount() {

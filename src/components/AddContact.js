@@ -1,4 +1,5 @@
 import React from 'react';
+import validator from 'validator';
 import { Form, FormGroup, FormControl, ControlLabel, Button } from 'react-bootstrap'; 
 
 // generate uuid, reference: https://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript#answer-2117523
@@ -11,13 +12,16 @@ function uuidv4() {
 
 export default class AddContact extends React.Component {
     state = {
-        error: undefined
+        error: undefined,
+        firstname: '',
+        lastname: '',
+        email: '',
+        phone: ''
     };
 
     handleAddContact = (e) => {
         e.preventDefault();
         
-        // TODO: has to make the data type to be OBJ
         const id = uuidv4();
         const firstname = e.target.elements.firstname.value.trim();
         const lastname = e.target.elements.lastname.value.trim();
@@ -31,41 +35,103 @@ export default class AddContact extends React.Component {
             lastname: lastname,
             email: email,
             phone: phone,
-            active: active
+            active: active,
+            shortcut: firstname.toLowerCase() + lastname.toLowerCase() + email.toLowerCase() + phone.toLowerCase()
         };
 
         const error = this.props.handleAddContact(contact);
         this.setState(() => ({ error }));
-
         if(!error) {
             e.target.elements.firstname.value = '';
             e.target.elements.lastname.value = '';
             e.target.elements.email.value = '';
             e.target.elements.phone.value = '';
         }
-    }
+    };
+
+    getValidFirstName = () => {
+        const length = this.state.firstname.length;
+        if (length > 10) return 'error';
+        else if (length > 0) return 'success';
+        return null;
+    };
+
+    handleFirstnameChange = (e) => {
+        this.setState({ firstname: e.target.value });
+    };
+
+    getValidLastName = () => {
+        const length = this.state.lastname.length;
+        if (length > 10) return 'error';
+        else if (length > 0) return 'success';
+        return null;
+    };
+
+    handleLastnameChange = (e) => {
+        this.setState({ lastname: e.target.value });
+    };
+
+    getValidEmail = () => {
+        if(!this.state.email.length){
+            return null;
+        }
+        else if(!validator.isEmail(this.state.email)) return 'error';
+        else if(validator.isEmail(this.state.email) ) return 'success';
+    };
+
+    handleEmailChange = (e) => {
+        this.setState({ email: e.target.value });
+    };
+
+    getValidPhone = () => {
+        if(!this.state.phone.length){
+            return null;
+        }
+        else if(!validator.isMobilePhone(this.state.phone, ['en-US'])) return 'error';
+        else if(validator.isMobilePhone(this.state.phone, ['en-US']) ) return 'success';
+    };
+
+    handlePhoneChange = (e) => {
+        this.setState({ phone: e.target.value });
+    };
+
     render() {
         return (
             <div>
                 {this.state.error && <p>{this.state.error}</p>}
-
                 <Form inline onSubmit={this.handleAddContact}>
-                    <FormGroup controlId="formInlineFirstName">
+                    <FormGroup
+                        controlId="formInlineFirstName"
+                        validationState={this.getValidFirstName()}
+                    >
                         <ControlLabel>FirstName</ControlLabel>{' '}
-                        <FormControl type="text" name = "firstname" placeholder="eg. Jane" />
-                    </FormGroup>{'      '}
-                    <FormGroup controlId="formInlineLastName">
+                        <FormControl type="text" name = "firstname" value = {this.state.firstname} placeholder="eg. Jane (0-10 characters)" onChange={this.handleFirstnameChange} />
+                        <FormControl.Feedback />
+                    </FormGroup>{' '}
+                    <FormGroup 
+                        controlId="formInlineLastName"
+                        validationState={this.getValidLastName()}
+                    >
                         <ControlLabel>LastName</ControlLabel>{' '}
-                        <FormControl type="text" name = "lastname" placeholder="eg. Doe" />
-                    </FormGroup>{'      '}
-                    <FormGroup controlId="formInlineEmail">
+                        <FormControl type="text" name = "lastname" value = {this.state.lastname} placeholder="eg. Doe (0-10 characters)" onChange={this.handleLastnameChange} />
+                        <FormControl.Feedback />
+                    </FormGroup>{' '}
+                    <FormGroup 
+                        controlId="formInlineEmail"
+                        validationState={this.getValidEmail()}
+                    >
                         <ControlLabel>Email</ControlLabel>{' '}
-                        <FormControl type="email" name = "email" placeholder="eg. jane.doe@example.com" />
-                    </FormGroup>{'      '}
-                    <FormGroup controlId="formInlinePhone">
+                        <FormControl type="email" name = "email" value = {this.state.email} placeholder="eg. jane.doe@example.com" onChange={this.handleEmailChange} />
+                        <FormControl.Feedback />
+                    </FormGroup>{' '}
+                    <FormGroup 
+                        controlId="formInlinePhone"
+                        validationState={this.getValidPhone()}
+                    >
                         <ControlLabel>Phone</ControlLabel>{' '}
-                        <FormControl type="text" name = "phone" placeholder="eg. xxx-xxx-xxxx" />
-                    </FormGroup>{'      '}
+                        <FormControl type="text" name = "phone" value = {this.state.phone} placeholder="eg. xxx-xxx-xxxx (U.S)" onChange={this.handlePhoneChange} />
+                        <FormControl.Feedback />
+                    </FormGroup>{' '}
                     <Button bsStyle="primary" type="submit">Add New</Button>
                 </Form>
             </div>

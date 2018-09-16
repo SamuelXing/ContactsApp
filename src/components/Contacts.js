@@ -19,6 +19,7 @@ const Contacts = (props) => (
                     props.contacts.map((contact) => (
                     <Contact 
                         key = {contact.id} 
+                        uuid = {contact.id} 
                         firstname = {contact.firstname}
                         lastname = {contact.lastname}
                         email = {contact.email}
