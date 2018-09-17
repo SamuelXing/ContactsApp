@@ -10,5 +10,5 @@ app.use(express.static(publicPath));
 
 // start server
 app.listen(port, () => {
-    console.log('Server is up...');
+    console.log('Server is listening on http://localhost:3000......');
 });

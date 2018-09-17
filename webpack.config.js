@@ -9,7 +9,7 @@ module.exports = (env) => {
     return {
         entry: './src/app.js',
         output: {
-            path: path.join(__dirname, 'public'),
+            path: path.join(__dirname, 'public', 'dist'),
             filename: 'bundle.js'
         },
         watch: isProduction ? false: true,
@@ -52,6 +52,7 @@ module.exports = (env) => {
         devServer: {
             port: 8888,
             contentBase: path.join(__dirname, 'public'),
+            publicPath: '/dist/'
         }
     
     };
