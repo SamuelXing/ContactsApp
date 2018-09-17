@@ -39,6 +39,7 @@ export default class Contact extends React.Component {
 
         const error = this.props.edit(this.state.uuid, firstname, lastname, email, phone);
         this.setState(() => ({ error }));
+        console.log(error);
         if(!error) {
             e.target.elements.firstname.value = '';
             e.target.elements.lastname.value = '';

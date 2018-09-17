@@ -58,7 +58,11 @@ export default class ContactApp extends React.Component {
 
     handleEditContact = (contactId, firstname, lastname, email, phone) => {
         const contacts = this.state.contacts;
-        
+        if(!firstname) return 'INVALID INPUTS: FirstName is empty';
+        if(!lastname) return 'INVALID INPUTS: LastName is empty';
+        if(!email) return 'INVALID INPUTS: Email is empty';
+        if(!phone) return 'INVALID INPUTS: Phone is empty';
+
         for(let i = 0; i < contacts.length; i++){
             if(contacts[i].shortcut === firstname.toLowerCase() + lastname.toLowerCase() + email.toLowerCase() + phone.toLowerCase()){
                 return 'INVALID INPUTS: Contact had already added';
