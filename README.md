@@ -26,8 +26,6 @@ $ npm start					# start app
 Document
 ---
 The document explains the directory structures of this project.
-
-1. **Directory Structures**
 	
 ```bash
 zihaos-MacBook-Pro:ContactApp zihaoxing$ tree -a -I .git
