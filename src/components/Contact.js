@@ -3,6 +3,7 @@ import validator from 'validator';
 import { Button, Modal, Form, FormGroup, FormControl, ControlLabel, Col } from 'react-bootstrap';
 
 function formattingPhone(phone){
+    if(!phone) return '';
     const s1 = phone.substring(0, 3);
     const s2 = phone.substring(3, 6);
     const s3 = phone.substring(6);
@@ -56,6 +57,7 @@ export default class Contact extends React.Component {
     }
 
     getValidFirstName = () => {
+        if(!this.state.firstname) return null;
         const length = this.state.firstname.length;
         if (length > 10) return 'error';
         else if (length > 0) return 'success';
@@ -67,6 +69,7 @@ export default class Contact extends React.Component {
     };
 
     getValidLastName = () => {
+        if(!this.state.lastname) return null;
         const length = this.state.lastname.length;
         if (length > 10) return 'error';
         else if (length > 0) return 'success';
@@ -78,7 +81,7 @@ export default class Contact extends React.Component {
     };
 
     getValidEmail = () => {
-        if(!this.state.email.length){
+        if(!this.state.email || !this.state.email.length){
             return null;
         }
         else if(!validator.isEmail(this.state.email)) return 'error';
@@ -90,7 +93,7 @@ export default class Contact extends React.Component {
     };
 
     getValidPhone = () => {
-        if(!this.state.phone.length){
+        if(!this.state.phone || !this.state.phone.length){
             return null;
         }
         else if(!validator.isMobilePhone(this.state.phone, ['en-US'])) return 'error';
