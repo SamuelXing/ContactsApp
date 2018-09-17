@@ -39,6 +39,23 @@ export default class ContactApp extends React.Component {
         }));
     };
 
+    handleChangeStatus = (contactId) => {
+        const contacts = this.state.contacts;
+        
+        for(let i = 0; i < contacts.length; i++){
+            if(contacts[i].id === contactId){
+                contacts[i].status = !contacts[i].status;
+            }
+        }
+
+        const json = JSON.stringify(contacts);
+        localStorage.setItem('contacts', json);
+
+        this.setState(() => ({
+            contacts: contacts
+        }));
+    };
+
     handleEditContact = (contactId, firstname, lastname, email, phone) => {
         const contacts = this.state.contacts;
         
@@ -101,6 +118,7 @@ export default class ContactApp extends React.Component {
                             contacts = {this.state.contacts}
                             handleRemoveContact = {this.handleRemoveContact}
                             handleEditContact = {this.handleEditContact}
+                            handleChangeStatus = {this.handleChangeStatus}
                         />
                         </div>   
                     </Col>

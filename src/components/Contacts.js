@@ -11,6 +11,7 @@ const Contacts = (props) => (
                 <th>Last Name</th>
                 <th>Email</th>
                 <th>Phone</th>
+                <th>Status</th>
                 <th>Operations</th>
             </tr>
             </thead>
@@ -27,6 +28,7 @@ const Contacts = (props) => (
                         status = {contact.status}
                         remove = {props.handleRemoveContact} 
                         edit = {props.handleEditContact}
+                        changeStatus = {props.handleChangeStatus}
                     />))
                 }
             </tbody>

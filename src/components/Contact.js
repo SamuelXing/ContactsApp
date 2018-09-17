@@ -19,16 +19,16 @@ export default class Contact extends React.Component {
 
         this.state = {
             show: false,
+            color: this.props.status ? "#5cb85c" : "#d9534f",
             error: undefined,
             firstname: this.props.firstname,
             lastname: this.props.lastname,
             email: this.props.email,
             phone: this.props.phone,
-            uuid: this.props.uuid
+            uuid: this.props.uuid,
+            status: this.props.status
         };
     }
-
-    
 
     handleEditContact = (e) => {
         e.preventDefault();
@@ -46,6 +46,17 @@ export default class Contact extends React.Component {
             e.target.elements.phone.value = '';
         }
         this.handleClose();
+    }
+
+    handleChangeStatus = (e) => {
+        this.props.changeStatus(this.props.uuid);
+        if(!this.props.status){
+            this.setState(() => ({ color: "#5cb85c" }));
+        }
+        else{
+            this.setState(() => ({ color: "#d9534f" }));
+        }
+        
     }
 
     handleClose() {
@@ -104,14 +115,28 @@ export default class Contact extends React.Component {
         this.setState({ phone: e.target.value });
     };
 
+    handleDisplayStatus = (status) => {
+        return status ? 'active' : 'inactive';
+    };
+
+    handleDisplayChangeStatus = (status) => {
+        return status ? 'inactivate' : 'activate'; 
+    };
+
     render() {
         return (
             <tr>
-                <td>{this.props.firstname}</td>
-                <td>{this.props.lastname}</td>
-                <td>{this.props.email}</td>
-                <td>{formattingPhone(this.props.phone)}</td>
+                <td><p style = {{marginTop: "0.7rem"}}>{this.props.firstname}</p></td>
+                <td><p style = {{marginTop: "0.7rem"}}>{this.props.lastname}</p></td>
+                <td><p style = {{marginTop: "0.7rem"}}>{this.props.email}</p></td>
+                <td><p style = {{marginTop: "0.7rem"}}>{formattingPhone(this.props.phone)}</p></td>
                 <td>
+                    <p style = {{color: this.state.color, marginTop: "0.7rem"}}>{this.handleDisplayStatus(this.props.status)}</p>
+                </td>
+                <td>
+                    <Button bsStyle="link" onClick = {this.handleChangeStatus}>
+                        {this.handleDisplayChangeStatus(this.props.status)}
+                    </Button>/
                     <Button bsStyle="link" onClick = {this.handleShow}>edit</Button>/
                     <Button bsStyle="link" onClick = {(e) => {
                         this.props.remove(this.props.uuid);

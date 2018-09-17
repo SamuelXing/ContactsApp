@@ -52,7 +52,7 @@ export default class AddContact extends React.Component {
             lastname: lastname,
             email: email,
             phone: phone,
-            active: active,
+            status: active,
             shortcut: firstname.toLowerCase() + lastname.toLowerCase() + email.toLowerCase() + phone.toLowerCase()
         };
 
@@ -62,7 +62,7 @@ export default class AddContact extends React.Component {
             firstname: '',
             lastname: '',
             email: '',
-            phone: ''
+            phone: '',
         }));
         if(!error) {
             e.target.elements.firstname.value = '';
