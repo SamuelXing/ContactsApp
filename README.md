@@ -5,7 +5,7 @@ A SPA(Single Page App) to manage your contacts. [[demo]](https://contacts-app-li
 Install
 ---
 ```bash
-$ git clone https://github.com/SamuelXing/ContactsApp.git
+$ git clone https://github.com/SamuelXing/ContactsApp.git && cd ContactsApp
 $ npm install 					# install all
 $ npm install --production			# only production
 ```
