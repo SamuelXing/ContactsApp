@@ -8,7 +8,9 @@
     "serve": "live-server public/",
     "build:dev": "webpack",
     "build:prod": "webpack -p --env production",
-    "dev-server": "webpack-dev-server"
+    "dev-server": "webpack-dev-server",
+    "start": "node server/server.js",
+    "heroku-postbuild": "npm run build:prod"
   },
   "author": "Samuel Xing",
   "license": "MIT",
@@ -20,6 +22,10 @@
     "normalize.css": "^7.0.0",
     "webpack-dev-server": "^2.5.1"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SamuelXing/ContactsApp"
+  },
   "dependencies": {
     "babel-cli": "^6.24.1",
     "babel-core": "^6.25.0",
@@ -27,6 +33,7 @@
     "babel-preset-env": "^1.5.2",
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.4",
+    "express": "^4.15.4",
     "node-sass": "^4.5.3",
     "react": "^16.0.0",
     "react-bootstrap": "^0.32.4",
