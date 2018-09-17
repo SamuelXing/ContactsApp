@@ -2,6 +2,7 @@ import React from 'react';
 import AddContact from './AddContact';
 import Contacts from './Contacts';
 import Header from './Header';
+import Footer from './Footer';
 
 // TODO: Footer
 import {Grid, Row, Col} from 'react-bootstrap';
@@ -101,9 +102,10 @@ export default class ContactApp extends React.Component {
                             handleRemoveContact = {this.handleRemoveContact}
                             handleEditContact = {this.handleEditContact}
                         />
-                        </div>
+                        </div>   
                     </Col>
                 </Row>
+                <Footer />
             </Grid>
         )
     }

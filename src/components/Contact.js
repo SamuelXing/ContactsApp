@@ -2,6 +2,13 @@ import React from 'react';
 import validator from 'validator';
 import { Button, Modal, Form, FormGroup, FormControl, ControlLabel, Col } from 'react-bootstrap';
 
+function formattingPhone(phone){
+    const s1 = phone.substring(0, 3);
+    const s2 = phone.substring(3, 6);
+    const s3 = phone.substring(6);
+    return '(' + s1 + ') ' + s2 + '-' + s3;
+}
+
 export default class Contact extends React.Component {
     constructor(props, context) {
         super(props, context);
@@ -19,6 +26,8 @@ export default class Contact extends React.Component {
             uuid: this.props.uuid
         };
     }
+
+    
 
     handleEditContact = (e) => {
         e.preventDefault();
@@ -98,9 +107,9 @@ export default class Contact extends React.Component {
                 <td>{this.props.firstname}</td>
                 <td>{this.props.lastname}</td>
                 <td>{this.props.email}</td>
-                <td>{this.props.phone}</td>
+                <td>{formattingPhone(this.props.phone)}</td>
                 <td>
-                    <Button bsStyle="link" onClick = {this.handleShow}>edit</Button>
+                    <Button bsStyle="link" onClick = {this.handleShow}>edit</Button>/
                     <Button bsStyle="link" onClick = {(e) => {
                         this.props.remove(this.props.uuid);
                     }}>remove</Button>
