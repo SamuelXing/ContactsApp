@@ -23,6 +23,12 @@ Run
 $ npm start					# start app
 ```
 
+Test
+---
+```bash
+$ npm test					# notes: build in dev mode
+```
+
 Document
 ---
 The document explains the directory structures of this project.
@@ -36,10 +42,8 @@ zihaos-MacBook-Pro:ContactApp zihaoxing$ tree -a -I .git
 ├── package-lock.json
 ├── package.json				# npm entry
 ├── public					# public assets
-│   ├── .DS_Store
 │   ├── dist					# keep distributions
 │   ├── images													
-│   │   ├── .DS_Store
 │   │   └── favicon.png
 │   └── index.html
 ├── server					# webserver src
@@ -47,27 +51,12 @@ zihaos-MacBook-Pro:ContactApp zihaoxing$ tree -a -I .git
 ├── src						# frontend src
 │   ├── app.js							
 │   ├── components				# ReactJS components
-│   │   ├── AddContact.js
-│   │   ├── Contact.js
-│   │   ├── ContactApp.js
-│   │   ├── Contacts.js
-│   │   ├── Footer.js
-│   │   └── Header.js
 │   ├── styles					# sass components
 │   │   ├── base
-│   │   │   ├── _base.scss
-│   │   │   └── _settings.scss
 │   │   ├── components
-│   │   │   ├── _contact-add-new.scss
-│   │   │   ├── _contacts.scss
-│   │   │   ├── _container.scss
-│   │   │   ├── _footer.scss
-│   │   │   └── _header.scss
 │   │   └── styles.scss
 │   └── tests					# unit-test scripts
 └── webpack.config.js				# webpack config
-
-10 directories, 27 files
 
 ```
 
@@ -75,7 +64,7 @@ TODO
 ---
 - [ ] Search Contacts; Pagination;
 - [ ] Changing theme; International;
-- [ ] CI/CD 
+- [X] CI/CD 
 
 License
 ---
