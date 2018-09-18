@@ -39,7 +39,7 @@ export default class Contact extends React.Component {
 
         const error = this.props.edit(this.state.uuid, firstname, lastname, email, phone);
         this.setState(() => ({ error }));
-        console.log(error);
+
         if(!error) {
             e.target.elements.firstname.value = '';
             e.target.elements.lastname.value = '';
@@ -132,7 +132,7 @@ export default class Contact extends React.Component {
                 <td><p style = {{marginTop: "0.7rem"}}>{this.props.email}</p></td>
                 <td><p style = {{marginTop: "0.7rem"}}>{formattingPhone(this.props.phone)}</p></td>
                 <td>
-                    <p style = {{color: this.state.color, marginTop: "0.7rem"}}>{this.handleDisplayStatus(this.props.status)}</p>
+                    <p style = {{color: this.props.status ? "#5cb85c" : "#d9534f", marginTop: "0.7rem"}}>{this.handleDisplayStatus(this.props.status)}</p>
                 </td>
                 <td>
                     <Button bsStyle="link" onClick = {this.handleChangeStatus}>
