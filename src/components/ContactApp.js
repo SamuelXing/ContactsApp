@@ -3,6 +3,7 @@ import AddContact from './AddContact';
 import Contacts from './Contacts';
 import Header from './Header';
 import Footer from './Footer';
+import validator from 'validator';
 
 // TODO: Footer
 import {Grid, Row, Col} from 'react-bootstrap';
@@ -16,9 +17,13 @@ export default class ContactApp extends React.Component {
         // Tvalidate input
         if(!contact) return 'INVALID INPUTS: Enter valid value to add item';
         else if(!contact.firstname) return 'INVALID INPUTS: FirstName is empty';
+        else if(contact.firstname.length > 10) return 'INVALID INPUTS: FirstName is invalid'
         else if(!contact.lastname) return 'INVALID INPUTS: LastName is empty';
+        else if(contact.lastname.length > 10) return 'INVALID INPUTS: LastName is invalid'
         else if(!contact.email) return 'INVALID INPUTS: Email is empty';
+        else if(!validator.isEmail(contact.email)) return 'INVALID INPUTS: Email is invalid';
         else if(!contact.phone) return 'INVALID INPUTS: Phone is empty';
+        else if(!validator.isMobilePhone(contact.phone, ['en-US'])) return "INVALID INPUTS: Phone is invalid";
 
         // check if the contact has already existed
         const result = this.state.contacts.filter(obj => {
@@ -59,9 +64,13 @@ export default class ContactApp extends React.Component {
     handleEditContact = (contactId, firstname, lastname, email, phone) => {
         const contacts = this.state.contacts;
         if(!firstname) return 'INVALID INPUTS: FirstName is empty';
+        if(firstname.length > 10) return 'INVALID INPUTS: FirstName is invalid'
         if(!lastname) return 'INVALID INPUTS: LastName is empty';
+        if(lastname.length > 10) return 'INVALID INPUTS: LastName is invalid'
         if(!email) return 'INVALID INPUTS: Email is empty';
+        if(!validator.isEmail(email)) return 'INVALID INPUTS: Email is invalid';
         if(!phone) return 'INVALID INPUTS: Phone is empty';
+        if(!validator.isMobilePhone(phone, ['en-US'])) return "INVALID INPUTS: Phone is invalid";
 
         for(let i = 0; i < contacts.length; i++){
             if(contacts[i].shortcut === firstname.toLowerCase() + lastname.toLowerCase() + email.toLowerCase() + phone.toLowerCase()){
