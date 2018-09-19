@@ -57,14 +57,24 @@ export default class AddContact extends React.Component {
         };
 
         const error = this.props.handleAddContact(contact);
-        this.setState(() => ({ 
-            error: error,
-            firstname: '',
-            lastname: '',
-            email: '',
-            phone: '',
-        }));
+        if(error){
+            this.setState(() => ({ 
+                error: error,
+                firstname: firstname,
+                lastname: lastname,
+                email: email,
+                phone: phone,
+            }));
+        }
         if(!error) {
+            this.setState(() => ({ 
+                show: false,
+                error: undefined,
+                firstname: '',
+                lastname: '',
+                email: '',
+                phone: ''
+            }));
             e.target.elements.firstname.value = '';
             e.target.elements.lastname.value = '';
             e.target.elements.email.value = '';
@@ -156,7 +166,7 @@ export default class AddContact extends React.Component {
                             validationState={this.getValidPhone()}
                         >
                             <ControlLabel>Phone</ControlLabel>{' '}
-                            <FormControl type="text" name = "phone" value = {this.state.phone} placeholder="eg. xxx-xxx-xxxx (U.S)" onChange={this.handlePhoneChange} />
+                            <FormControl type="text" name = "phone" value = {this.state.phone} placeholder="eg. 5417543010 (U.S)" onChange={this.handlePhoneChange} />
                             <FormControl.Feedback />
                         </FormGroup>{' '}
                         <Button bsStyle="primary" type="submit">Add New</Button>
@@ -199,7 +209,7 @@ export default class AddContact extends React.Component {
                         validationState={this.getValidPhone()}
                     >
                         <ControlLabel>Phone</ControlLabel>{' '}
-                        <FormControl type="text" name = "phone" value = {this.state.phone} placeholder="eg. xxx-xxx-xxxx (U.S)" onChange={this.handlePhoneChange} />
+                        <FormControl type="text" name = "phone" value = {this.state.phone} placeholder="eg. 5417543010 (U.S)" onChange={this.handlePhoneChange} />
                         <FormControl.Feedback />
                     </FormGroup>{' '}
                     <Button bsStyle="primary" type="submit">Add New</Button>

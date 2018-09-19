@@ -194,7 +194,7 @@ export default class Contact extends React.Component {
                                 Phone
                             </Col>
                             <Col sm={10}>
-                                <FormControl type="text" name = "phone" value = {this.state.phone} placeholder="eg. xxx-xxx-xxxx (U.S)" onChange={this.handlePhoneChange} />
+                                <FormControl type="text" name = "phone" value = {this.state.phone} placeholder="eg. 5417543010 (U.S)" onChange={this.handlePhoneChange} />
                             </Col>
                             
                             </FormGroup>
